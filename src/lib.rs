@@ -22,6 +22,7 @@ pub use ray::*;
 pub use traits::*;
 pub use volume::*;
 
+pub mod prelude;
 pub mod dbvt;
 pub mod primitive;
 pub mod algorithm;

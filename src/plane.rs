@@ -143,7 +143,7 @@ impl Continuous<Plane> for Plane {
         let p1 = self;
         let d = p1.n.cross(p2.n);
         let denom = d.dot(d);
-        if denom != 0. {
+        if f32::abs(denom - 0.) <= f32::EPSILON {
             None
         } else {
             let p = (p2.n * p1.d - p1.n * p2.d).cross(d) / denom;
@@ -168,7 +168,7 @@ impl Continuous<(Plane, Plane)> for Plane {
         let (p1, p2, p3) = (self, planes.0, planes.1);
         let u = p2.n.cross(p3.n);
         let denom = p1.n.dot(u);
-        if denom.abs() != 0. {
+        if f32::abs(denom - 0.) <= f32::EPSILON {
             None
         } else {
             let p = (u * p1.d + p1.n.cross(p2.n * p3.d - p3.n * p2.d)) / denom;

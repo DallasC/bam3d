@@ -116,36 +116,16 @@ pub struct FrustumPoints {
     /// Far bottom right point
     pub far_bottom_right: Vec3,
 }
-// @TODO: Look into projection conversions and if we need them?
-// /// Conversion trait for converting glam projection types into a view frustum
-// pub trait Projection: Into<Mat4> {
-//     /// Create a view frustum
-//     fn to_frustum(&self) -> Frustum;
-// }
 
-// impl Projection for PerspectiveFov {
-//     fn to_frustum(&self) -> Frustum {
-//         // TODO: Could this be faster?
-//         Frustum::from_mat4(self.clone().into()).unwrap()
-//     }
-// }
+/// Conversion trait for converting glam projection matrixes into a view frustum
+pub trait Projection: Into<Mat4> {
+    /// Create a view frustum from a perspective projection
+    fn perspective_to_frustum(&self) -> Frustum;
+}
 
-// impl Projection for Perspective {
-//     fn to_frustum(&self) -> Frustum {
-//         // TODO: Could this be faster?
-//         Frustum::from_mat4(self.clone().into()).unwrap()
-//     }
-// }
-
-// impl Projection for Ortho {
-//     fn to_frustum(&self) -> Frustum {
-//         Frustum {
-//             left: Plane::from_abcd(1.0, 0.0, 0.0, self.left),
-//             right: Plane::from_abcd(-1.0, 0.0, 0.0, self.right),
-//             bottom: Plane::from_abcd(0.0, 1.0, 0.0, self.bottom),
-//             top: Plane::from_abcd(0.0, -1.0, 0.0, self.top),
-//             near: Plane::from_abcd(0.0, 0.0, -1.0, self.near),
-//             far: Plane::from_abcd(0.0, 0.0, 1.0, self.far),
-//         }
-//     }
-// }
+impl Projection for Mat4 {
+    fn perspective_to_frustum(&self) -> Frustum {
+        // TODO: Could this be faster?
+        Frustum::from_mat4(*self).unwrap()
+    }
+}
