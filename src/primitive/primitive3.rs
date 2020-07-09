@@ -3,7 +3,7 @@
 use glam::{Vec3, Mat4};
 
 use crate::{Aabb3, ray::Ray};
-use crate::primitive::{Capsule, ConvexPolyhedron, Cube, Cuboid, Cylinder, Particle3, Quad, Sphere};
+use crate::primitive::{Capsule, ConvexPolyhedron, Cube, Cuboid, Cylinder, Particle, Quad, Sphere};
 
 pub use crate::bound::{PlaneBound, Relation};
 pub use crate::traits::*;
@@ -15,7 +15,7 @@ pub use crate::volume::{Aabb, MinMax};
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub enum Primitive3 {
     /// Particle
-    Particle(Particle3),
+    Particle(Particle),
     /// Rectangular plane
     Quad(Quad),
     /// Sphere
@@ -32,8 +32,8 @@ pub enum Primitive3 {
     ConvexPolyhedron(ConvexPolyhedron),
 }
 
-impl From<Particle3> for Primitive3 {
-    fn from(particle: Particle3) -> Primitive3 {
+impl From<Particle> for Primitive3 {
+    fn from(particle: Particle) -> Primitive3 {
         Primitive3::Particle(particle)
     }
 }

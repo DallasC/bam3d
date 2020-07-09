@@ -16,11 +16,11 @@ use crate::{ray::Ray, traits::*};
 /// implemented.
 #[derive(Debug, Clone, PartialEq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
-pub struct Particle<P> {
-    m: marker::PhantomData<P>,
+pub struct Particle {
+    m: marker::PhantomData<Vec3>,
 }
 
-impl<P> Particle<P> {
+impl Particle {
     /// Create a new particle
     pub fn new() -> Self {
         Self {
@@ -28,14 +28,19 @@ impl<P> Particle<P> {
         }
     }
 }
-/// 3D particle
-pub type Particle3 = Particle<Vec3>;
 
-impl<C> Discrete<(Particle<Vec3>, Range<Vec3>)> for C
+impl Default for Particle {
+    fn default() -> Self {
+        Particle::new()
+    }
+}
+
+
+impl<C> Discrete<(Particle, Range<Vec3>)> for C
 where
     C: Continuous<Ray, Result = Vec3>,
 {
-    fn intersects(&self, &(_, ref range): &(Particle<Vec3>, Range<Vec3>)) -> bool {
+    fn intersects(&self, &(_, ref range): &(Particle, Range<Vec3>)) -> bool {
         let direction = range.end - range.start;
         let ray = Ray::new(range.start, direction.normalize());
         match self.intersection(&ray) {
@@ -45,14 +50,14 @@ where
     }
 }
 
-impl Discrete<Ray> for Particle<Vec3> {
+impl Discrete<Ray> for Particle {
     /// Ray needs to be in particle object space
     fn intersects(&self, ray: &Ray) -> bool {
         Vec3::zero().intersects(ray)
     }
 }
 
-impl Continuous<Ray> for Particle<Vec3> {
+impl Continuous<Ray> for Particle {
     type Result = Vec3;
 
     /// Ray needs to be in particle object space
@@ -63,13 +68,13 @@ impl Continuous<Ray> for Particle<Vec3> {
 
 
 
-impl<C> DiscreteTransformed<(Particle<Vec3>, Range<Vec3>)> for C 
+impl<C> DiscreteTransformed<(Particle, Range<Vec3>)> for C 
 where
     C: ContinuousTransformed<Ray>
 {
     fn intersects_transformed(
         &self,
-        &(_, ref range): &(Particle<Vec3>, Range<Vec3>),
+        &(_, ref range): &(Particle, Range<Vec3>),
         transform: &Mat4,
     ) -> bool {
         let direction = range.end - range.start;
@@ -81,13 +86,13 @@ where
     }
 }
 
-impl<C> Continuous<(Particle<Vec3>, Range<Vec3>)> for C
+impl<C> Continuous<(Particle, Range<Vec3>)> for C
 where
     C: Continuous<Ray, Result = Vec3> 
 {
     type Result = Vec3;
 
-    fn intersection(&self, &(_, ref range): &(Particle<Vec3>, Range<Vec3>)) -> Option<Vec3> {
+    fn intersection(&self, &(_, ref range): &(Particle, Range<Vec3>)) -> Option<Vec3> {
         let direction = range.end - range.start;
         let ray = Ray::new(range.start, direction.normalize());
         self.intersection(&ray).and_then(|p| {
@@ -100,13 +105,13 @@ where
     }
 }
 
-impl<C> ContinuousTransformed<(Particle<Vec3>, Range<Vec3>)> for C 
+impl<C> ContinuousTransformed<(Particle, Range<Vec3>)> for C 
 where
     C: ContinuousTransformed<Ray> 
 {
     fn intersection_transformed(
         &self,
-        &(_, ref range): &(Particle<Vec3>, Range<Vec3>),
+        &(_, ref range): &(Particle, Range<Vec3>),
         transform: &Mat4,
     ) -> Option<Vec3> {
         let direction = range.end - range.start;

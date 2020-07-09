@@ -49,7 +49,7 @@ impl Primitive for Cylinder {
             if (result.y() - 0.).abs() < std::f32::EPSILON && (result.x() - 0.).abs() < std::f32::EPSILON && (result.z() - 0.).abs() < std::f32::EPSILON {
                 result = Vec3::splat(0.); // cancel out any inconsistencies
             } else {
-                result * self.radius;
+                result *= self.radius;
             }
         }
         if negative {

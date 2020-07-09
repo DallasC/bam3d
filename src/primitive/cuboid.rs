@@ -3,10 +3,7 @@ use glam::{Vec3, Mat4};
 use crate::{ray::Ray, Aabb3};
 use crate::primitive::util::get_max_point;
 use crate::volume::Sphere;
-
-use crate::bound::{PlaneBound, Relation};
 use crate::traits::*;
-use crate::volume::{Aabb, MinMax};
 
 /// Cuboid primitive.
 ///

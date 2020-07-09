@@ -62,3 +62,9 @@ impl DbvtBroadPhase {
         potentials
     }
 }
+
+impl Default for DbvtBroadPhase {
+    fn default() -> Self {
+        DbvtBroadPhase::new()
+    }
+}

@@ -519,6 +519,13 @@ impl GJK {
     }
 }
 
+impl Default for GJK {
+    fn default() -> Self {
+        GJK::new()
+    }
+}
+
+
 #[cfg(test)]
 mod tests {
     use glam::{Vec3, Quat};

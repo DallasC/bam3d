@@ -128,6 +128,15 @@ where
     }
 }
 
+impl<V> Default for SweepAndPrune<V>
+where
+    V: Variance,
+{
+    fn default() -> Self {
+        SweepAndPrune::new()
+    }
+}
+
 mod variance {
     use std::marker;
 

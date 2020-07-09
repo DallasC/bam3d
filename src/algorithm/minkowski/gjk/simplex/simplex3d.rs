@@ -10,6 +10,7 @@ use crate::primitive::util::{barycentric_vector, get_closest_point_on_edge};
 pub struct SimplexProcessor3 {
 }
 
+#[allow(clippy::many_single_char_names)]
 impl SimplexProcessor for SimplexProcessor3 {
 
     fn reduce_to_closest_feature(
@@ -116,6 +117,7 @@ impl SimplexProcessor for SimplexProcessor3 {
     }
 }
 
+#[allow(clippy::many_single_char_names)]
 #[inline]
 fn get_closest_point_on_face(
     a: &Vec3,
@@ -156,6 +158,7 @@ fn cross_aba(a: &Vec3, b: &Vec3) -> Vec3 {
     a.cross(*b).cross(*a)
 }
 
+#[allow(clippy::too_many_arguments)]
 #[inline]
 fn check_side(
     abc: &Vec3,

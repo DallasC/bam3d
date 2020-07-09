@@ -55,14 +55,20 @@ impl Discrete<Ray> for Vec3 {
     }
 }
 
-impl DiscreteTransformed<Ray> for dyn Discrete<Ray> {
+impl<C> DiscreteTransformed<Ray> for C
+where
+    C: Discrete<Ray>, 
+{
 
     fn intersects_transformed(&self, ray: &Ray, transform: &Mat4) -> bool {
         self.intersects(&ray.transform(transform.inverse()))
     }
 }
 
-impl ContinuousTransformed<Ray> for dyn Continuous<Ray, Result = Vec3> {
+impl<C> ContinuousTransformed<Ray> for C
+where
+    C: Continuous<Ray, Result = Vec3>,
+{
 
     fn intersection_transformed(&self, ray: &Ray, transform: &Mat4) -> Option<Vec3> {
 

@@ -8,8 +8,7 @@ use glam::{Vec3, Mat4};
 use crate::{line::Line, plane::Plane, ray::Ray, volume::Sphere, traits::*};
 
 use crate::bound::{PlaneBound, Relation};
-use crate::traits::*;
-use crate::volume::{Aabb, MinMax};
+use crate::volume::{Aabb};
 
 /// A three-dimensional AABB, aka a rectangular prism.
 #[derive(Copy, Clone, PartialEq)]

@@ -5,10 +5,6 @@ use glam::{Vec2, Vec3, Mat4};
 use crate::{Aabb3, ray::Ray, volume::Sphere, traits::*};
 use crate::primitive::util::get_max_point;
 
-use crate::bound::{PlaneBound, Relation};
-use crate::traits::*;
-use crate::volume::{Aabb, MinMax};
-
 /// Rectangular plane primitive. Will lie on the xy plane when not transformed.
 ///
 /// Have a cached set of corner points to speed up computation.

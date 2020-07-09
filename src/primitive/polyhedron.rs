@@ -575,7 +575,7 @@ mod tests {
         ];
         let faces = vec![(1, 3, 2), (3, 1, 0), (2, 0, 1), (0, 2, 3)];
 
-        let polytope = ConvexPolyhedron::new_with_faces(vertices.clone(), faces);
+        let polytope = ConvexPolyhedron::new_with_faces(vertices, faces);
         assert_eq!(
             Aabb3::new(Vec3::new(0., 0., 0.), Vec3::new(1., 1., 1.)),
             polytope.compute_bound()
@@ -592,7 +592,7 @@ mod tests {
         ];
         let faces = vec![(1, 3, 2), (3, 1, 0), (2, 0, 1), (0, 2, 3)];
 
-        let polytope = ConvexPolyhedron::new_with_faces(vertices.clone(), faces);
+        let polytope = ConvexPolyhedron::new_with_faces(vertices, faces);
         let ray = Ray::new(Vec3::new(0.25, 5., 0.25), Vec3::new(0., -1., 0.));
         assert!(polytope.intersects(&ray));
         let ray = Ray::new(Vec3::new(0.5, 5., 0.5), Vec3::new(0., 1., 0.));
@@ -608,7 +608,7 @@ mod tests {
             Vec3::new(0., 0., 0.),
         ];
         let faces = vec![(1, 3, 2), (3, 1, 0), (2, 0, 1), (0, 2, 3)];
-        let polytope = ConvexPolyhedron::new_with_faces(vertices.clone(), faces);
+        let polytope = ConvexPolyhedron::new_with_faces(vertices, faces);
         let t = transform(0., 0., 0., 0.);
         let ray = Ray::new(Vec3::new(0.25, 5., 0.25), Vec3::new(0., -1., 0.));
         assert!(polytope.intersects_transformed(&ray, &t));
@@ -631,7 +631,7 @@ mod tests {
         ];
         let faces = vec![(1, 3, 2), (3, 1, 0), (2, 0, 1), (0, 2, 3)];
 
-        let polytope = ConvexPolyhedron::new_with_faces(vertices.clone(), faces);
+        let polytope = ConvexPolyhedron::new_with_faces(vertices, faces);
         let ray = Ray::new(Vec3::new(0.25, 5., 0.25), Vec3::new(0., -1., 0.));
         let p = polytope.intersection(&ray).unwrap();
         assert!((p.x() - 0.250_000_18).abs() < std::f32::EPSILON);
@@ -652,7 +652,7 @@ mod tests {
             Vec3::new(0., 0., 0.),
         ];
         let faces = vec![(1, 3, 2), (3, 1, 0), (2, 0, 1), (0, 2, 3)];
-        let polytope = ConvexPolyhedron::new_with_faces(vertices.clone(), faces);
+        let polytope = ConvexPolyhedron::new_with_faces(vertices, faces);
         let t = transform(0., 0., 0., 0.);
         let ray = Ray::new(Vec3::new(0.25, 5., 0.25), Vec3::new(0., -1., 0.));
         let p = polytope.intersection_transformed(&ray, &t).unwrap();
@@ -660,12 +660,12 @@ mod tests {
         assert!((p.y() - 0.499_999_7).abs() < std::f32::EPSILON);
         assert!((p.z() - 0.250_000_18).abs() < std::f32::EPSILON);
         let ray = Ray::new(Vec3::new(0.5, 5., 0.5), Vec3::new(0., 1., 0.));
-        assert!(None, polytope.intersection_transformed(&ray, &t));
+        assert_eq!(None, polytope.intersection_transformed(&ray, &t));
         let t = transform(0., 1., 0., 0.);
         let ray = Ray::new(Vec3::new(0.25, 5., 0.25), Vec3::new(0., -1., 0.));
         let p = polytope.intersection_transformed(&ray, &t).unwrap();
         assert!((p.x() - 0.250_000_18).abs() < std::f32::EPSILON);
-        assert!((p.y() - 1.499_999_7).abs() < std::f32::EPSILON);
+        assert!((p.y() - 1.499_999).abs() < std::f32::EPSILON);
         assert!((p.z() - 0.250_000_18).abs() < std::f32::EPSILON);
         let t = transform(0., 0., 0., 0.3);
         let p = polytope.intersection_transformed(&ray, &t).unwrap();
@@ -683,7 +683,7 @@ mod tests {
             Vec3::new(0., 0., 0.),
         ];
         let faces = vec![(1, 3, 2), (3, 1, 0), (2, 0, 1), (0, 2, 3)];
-        let polytope = ConvexPolyhedron::new_with_faces(vertices.clone(), faces);
+        let polytope = ConvexPolyhedron::new_with_faces(vertices, faces);
         let ray = Ray::new(Vec3::new(1., -1., 1.), Vec3::new(0., 1., 0.));
         polytope.intersection(&ray);
     }

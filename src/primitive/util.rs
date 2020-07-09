@@ -22,6 +22,7 @@ where
     transform.transform_point3(p)
 }
 
+#[allow(dead_code)]
 pub(crate) fn get_bound<'a, I, A: 'a>(vertices: I) -> A
 where
     A: Aabb,
@@ -39,7 +40,7 @@ pub(crate) fn triple_product(a: &Vec2, b: &Vec2, c: &Vec2) -> Vec2 {
 }
 
 /// Compute barycentric coordinates of p in relation to the triangle defined by (a, b, c).
-#[allow(dead_code)]
+#[allow(dead_code, clippy::many_single_char_names)]
 pub(crate) fn barycentric_vector(p: Vec3, a: Vec3, b: Vec3, c: Vec3) -> (f32, f32, f32){
     let v0 = b - a;
     let v1 = c - a;
@@ -58,6 +59,7 @@ pub(crate) fn barycentric_vector(p: Vec3, a: Vec3, b: Vec3, c: Vec3) -> (f32, f3
 }
 
 /// Compute barycentric coordinates of p in relation to the triangle defined by (a, b, c).
+#[allow(clippy::many_single_char_names)]
 pub(crate) fn barycentric_point(p: Vec3, a: Vec3, b: Vec3, c: Vec3) -> (f32, f32, f32) {
     let v0 = b - a;
     let v1 = c - a;

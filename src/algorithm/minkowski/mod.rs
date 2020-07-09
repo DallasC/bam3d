@@ -51,6 +51,12 @@ impl SupportPoint {
     }
 }
 
+impl Default for SupportPoint {
+    fn default() -> Self {
+        SupportPoint::new()
+    }
+}
+
 impl Sub<Vec3> for SupportPoint {
     type Output = Self;
 

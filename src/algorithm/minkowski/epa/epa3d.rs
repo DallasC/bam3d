@@ -301,6 +301,7 @@ mod tests {
         assert_eq!(2., contact.penetration_depth);
     }
 
+    #[allow(clippy::too_many_arguments)]
     fn assert_face(
         face: &Face,
         a: usize,
