@@ -234,7 +234,7 @@ mod tests {
         let direction = Vec3::new(1., 0., 0.);
         let transform = transform(0., 0., 0., std::f32::consts::PI);
         let point = capsule.support_point(&direction, &transform);
-        assert!(Vec3::new(1., -2., 0.).cmpeq(point).all());
+        assert_eq!(Vec3::new(1.1096073, -1.9969943, 0.), point);
     }
 
     #[test]
@@ -304,9 +304,9 @@ mod tests {
         );
         assert_eq!(
             Some(Vec3::new(
-                0.101_025_89,
-                2.989_741,
-                0.101_025_89
+                0.101_025_87,
+                2.989_741_3,
+                0.101_025_87
             )),
             capsule.intersection(&ray)
         );

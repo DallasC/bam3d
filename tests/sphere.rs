@@ -165,15 +165,15 @@ fn test_sphere_union_sphere() {
     assert_eq!(base, base.union(&inside));
     assert_eq!(
         Sphere {
-            center: Vec3::new(2.8452994616207485, 2.8452994616207485, 2.8452994616207485),
-            radius: 9.928203230275509,
+            center: Vec3::new(2.845_299_7, 2.845_299_7, 2.845_299_7),
+            radius: 9.928_204,
         },
         base.union(&outside)
     );
     assert_eq!(
         Sphere {
-            center: Vec3::new(1.4226497308103743, 1.4226497308103743, 1.4226497308103743),
-            radius: 7.464101615137754,
+            center: Vec3::new(1.422_649_9, 1.422_649_9, 1.422_649_9),
+            radius: 7.464_102,
         },
         base.union(&inside_out)
     );
@@ -193,15 +193,15 @@ fn test_sphere_union_aabb3() {
     assert_eq!(base, base.union(&inside));
     assert_eq!(
         Sphere {
-            center: Vec3::new(3.0566243270259355, 3.0566243270259355, 3.0566243270259355),
-            radius: 10.294228634059948,
+            center: Vec3::new(3.056_624_2, 3.056_624_2, 3.056_624_2),
+            radius: 10.294_229,
         },
         base.union(&outside)
     );
     assert_eq!(
         Sphere {
-            center: Vec3::new(2.0566243270259355, 2.0566243270259355, 2.0566243270259355),
-            radius: 8.56217782649107,
+            center: Vec3::new(2.056_624_2, 2.056_624_2, 2.056_624_2),
+            radius: 8.562_178,
         },
         base.union(&inside_out)
     );

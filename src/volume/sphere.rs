@@ -121,7 +121,7 @@ impl Contains<Aabb3> for Sphere {
 impl Contains<Vec3> for Sphere {
     #[inline]
     fn contains(&self, p: &Vec3) -> bool {
-        let distance = self.center - *p;
+        let distance = *p - self.center;
         (distance).dot(distance) <= self.radius * self.radius
     }
 }
@@ -136,9 +136,9 @@ impl Contains<Line> for Sphere {
 impl Contains<Sphere> for Sphere {
     #[inline]
     fn contains(&self, other: &Sphere) -> bool {
-        let center_dist = self.center- other.center;
+        let center_dist = other.center - self.center;
         let distance_sq = (center_dist).dot(center_dist);
-        distance_sq.sqrt() <= self.radius
+        distance_sq.sqrt() + other.radius <= self.radius
     }
 }
 

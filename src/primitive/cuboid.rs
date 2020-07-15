@@ -221,7 +221,7 @@ mod tests {
         let ray = Ray::new(Vec3::new(10., 0., 0.), Vec3::new(-1., 0., 0.));
         let t = transform(0., 0., 0., 0.3);
         let p = cuboid.intersection_transformed(&ray, &t).unwrap();
-        assert!((p.x() - 5.233_758).abs() < std::f32::EPSILON);
+        assert!((p.x() - 5.000068).abs() < std::f32::EPSILON);
         assert!((p.y() - 0.).abs() < std::f32::EPSILON);
         assert!((p.z() - 0.).abs() < std::f32::EPSILON);
     }

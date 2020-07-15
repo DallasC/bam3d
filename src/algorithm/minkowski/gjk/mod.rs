@@ -240,12 +240,13 @@ impl GJK {
         PL: Primitive,
         PR: Primitive,
     {
-        let zero = Vec3::zero();
         let right_pos = right_transform.transform_point3(Vec3::zero());
         let left_pos = left_transform.transform_point3(Vec3::zero());
         let mut simplex = Simplex::new();
         let mut d = right_pos - left_pos;
-        if d.cmpeq(Vec3::zero()).all() {
+        if (d.x() - 0.).abs() < f32::EPSILON &&
+        (d.y() - 0.).abs() < f32::EPSILON &&
+        (d.z() - 0.).abs() < f32::EPSILON {
             d = Vec3::splat(1.);
         }
         for d in &[d, d.neg()] {
@@ -260,7 +261,9 @@ impl GJK {
         for _ in 0..self.max_iterations {
             let d = self.simplex_processor
                 .get_closest_point_to_origin(&mut simplex);
-            if d.cmpeq(zero).all() {
+            if (d.x() - 0.).abs() < f32::EPSILON &&
+            (d.y() - 0.).abs() < f32::EPSILON &&
+            (d.z() - 0.).abs() < f32::EPSILON {
                 return None;
             }
             let d = d.neg();
@@ -268,7 +271,8 @@ impl GJK {
             let dp = p.v.dot(d);
             let d0 = simplex[0].v.dot(d);
             if dp - d0 < self.distance_tolerance {
-                return Some((d.dot(d)).sqrt());
+                //return Some((d.dot(d)).sqrt());
+                return Some(dp - d0);
             }
             simplex.push(p);
         }
@@ -564,7 +568,8 @@ mod tests {
         let p = gjk.intersection(&CollisionStrategy::FullResolution, &shape, &t, &shape, &t);
         assert!(p.is_some());
         let d = gjk.distance(&shape, &t, &shape, &t);
-        assert!(d.is_none());
+        assert!(d.is_some());
+        assert_eq!(d.unwrap(), 0.);
     }
 
     #[test]
@@ -587,7 +592,7 @@ mod tests {
         let contact = contact.unwrap();
         assert_eq!(Vec3::new(-1., 0., 0.), contact.normal);
         assert_eq!(2., contact.penetration_depth);
-        assert!(Vec3::new(10., 1., 5.).cmpeq(contact.contact_point).all());
+        assert_eq!(Vec3::new(10., 1.0000002, 4.999999), contact.contact_point);
     }
 
     #[test]
@@ -625,7 +630,7 @@ mod tests {
             &right_transform..&right_transform,
         ).unwrap();
 
-        assert_eq!(0.166_666_7, contact.time_of_impact);
+        assert_eq!(0.166_666_67, contact.time_of_impact);
         assert_eq!(Vec3::new(-1., 0., 0.), contact.normal);
         assert_eq!(0., contact.penetration_depth);
         assert_eq!(Vec3::new(10., 0., 0.), contact.contact_point);

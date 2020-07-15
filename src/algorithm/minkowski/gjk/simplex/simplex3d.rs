@@ -277,7 +277,7 @@ mod tests {
         let (hit, v) = test_check_origin(&mut simplex);
         assert!(!hit);
         assert_eq!(2, simplex.len());
-        assert!(Vec3::zero().cmpeq(v).all());
+        assert!(Vec3::new(0., 810., 0.).cmpeq(v).all());
     }
 
     #[test]
@@ -286,7 +286,7 @@ mod tests {
         let (hit, v) = test_check_origin(&mut simplex);
         assert!(!hit);
         assert_eq!(3, simplex.len());
-        assert!(Vec3::zero().cmpeq(v).all());
+        assert!(Vec3::new(0., 0., 135.).cmpeq(v).all());
     }
 
     #[test]
@@ -301,7 +301,7 @@ mod tests {
         assert!(!hit);
         assert_eq!(3, simplex.len());
         assert!(Vec3::new(-1., -10., -1.).cmpeq(simplex[0].v).all());
-        assert!(Vec3::zero().cmpeq(v).all());
+        assert!(Vec3::new(-90., 24., 32.).cmpeq(v).all());
     }
 
     #[test]

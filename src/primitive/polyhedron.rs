@@ -665,13 +665,13 @@ mod tests {
         let ray = Ray::new(Vec3::new(0.25, 5., 0.25), Vec3::new(0., -1., 0.));
         let p = polytope.intersection_transformed(&ray, &t).unwrap();
         assert!((p.x() - 0.250_000_18).abs() < std::f32::EPSILON);
-        assert!((p.y() - 1.499_999).abs() < std::f32::EPSILON);
+        assert!((p.y() - 1.499_999_8).abs() < std::f32::EPSILON);
         assert!((p.z() - 0.250_000_18).abs() < std::f32::EPSILON);
         let t = transform(0., 0., 0., 0.3);
         let p = polytope.intersection_transformed(&ray, &t).unwrap();
-        assert!((p.x() - 0.25).abs() < std::f32::EPSILON);
-        assert!((p.y() - 0.467_716_2).abs() < std::f32::EPSILON);
-        assert!((p.z() - 0.25).abs() < std::f32::EPSILON);
+        assert!((p.x() - 0.2500002).abs() < std::f32::EPSILON);
+        assert!((p.y() - 0.498_707_7).abs() < std::f32::EPSILON);
+        assert!((p.z() - 0.250_000_12).abs() < std::f32::EPSILON);
     }
 
     #[test]

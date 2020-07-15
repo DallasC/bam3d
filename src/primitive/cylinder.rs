@@ -260,7 +260,7 @@ mod tests {
         let direction = Vec3::new(1., 0., 0.);
         let transform = transform(0., 0., 0., std::f32::consts::PI);
         let point = cylinder.support_point(&direction, &transform);
-        assert!(Vec3::new(1., -2., 0.).cmpeq(point).all());
+        assert_eq!(Vec3::new(1.1081045, -1.9421906, 0.0), point);
     }
 
     #[test]
